@@ -1,26 +1,3 @@
-import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
-
-export const validateDto = (DtoClass) => {
-  return async (req, res, next) => {
-    const dto = plainToInstance(DtoClass, req.body);
-    const errors = await validate(dto);
-
-    if (errors.length > 0) {
-      return res.status(400).json({
-        errors: errors.map(err => ({
-          field: err.property,
-          errors: Object.values(err.constraints)
-        }))
-      });
-    }
-
-    req.body = dto;
-    next();
-  };
-};
-
-
 import jwt from 'jsonwebtoken';
 
 export const authenticate = (req, res, next) => {

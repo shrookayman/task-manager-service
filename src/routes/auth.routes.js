@@ -1,12 +1,11 @@
 import express from 'express';
 import { register, login } from '../controllers/auth.controller.js';
-// import { validateDto } from '../middleware/auth.middleware.js';
-// import { RegisterDto } from '../dtos/request/register.request.dto.js';
+import validateRegister  from '../middleware/validateRegister.js';
 
 const router = express.Router();
 
 // Register route
-router.post('/register', register);
+router.post('/register',validateRegister, register);
 
 // Login route
 router.post('/login', login);
